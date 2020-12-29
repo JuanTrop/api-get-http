@@ -1,4 +1,13 @@
 <?php
+//Validación HTTP
+$user = array_key_exists( 'PHP_AUTH_USER', $_SERVER ) ? $_SERVER['PHP_AUTH_USER'] : '';
+$pwd = array_key_exists( 'PHP_AUTH_PW', $_SERVER ) ? $_SERVER['PHP_AUTH_PW'] : '';
+
+if ( $user != 'mauro' || $pwd !== '1234')
+{
+    die; //Corta la ejecución si las credenciales no son correctas
+}
+
 
 //Definicion de recursos posibles
 $allowedResourceTypes = [
