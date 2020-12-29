@@ -1,13 +1,30 @@
 <?php
-//Validación HTTP
-$user = array_key_exists( 'PHP_AUTH_USER', $_SERVER ) ? $_SERVER['PHP_AUTH_USER'] : '';
-$pwd = array_key_exists( 'PHP_AUTH_PW', $_SERVER ) ? $_SERVER['PHP_AUTH_PW'] : '';
-
-if ( $user != 'mauro' || $pwd !== '1234')
-{
-    die; //Corta la ejecución si las credenciales no son correctas
+if(!array_key_exists( 'HTTP_X_TOKEN', $_SERVER )){
+    die;
 }
 
+$url = 'http:localhost:8001';
+
+$ch = curl_init( $url );
+curl_setopt(
+    $ch,
+    CURLOPT_HTTPHEADER,
+    [
+        "X-Token: {$_SERVER['HTTP_X_TOKEN']} "
+    ]
+    );
+curl_setopt(
+    $ch,
+    CURLOPT_RETURNTRANSFER,
+    true
+);
+
+$ret = curl_exec( $ch );
+
+if ( $ret !== 'true' ){
+    error_log("Failed");
+    die;
+}
 
 //Definicion de recursos posibles
 $allowedResourceTypes = [
