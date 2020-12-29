@@ -1,6 +1,6 @@
 <?php
 
-$ch = curl_init( $arg[1] );
+$ch = curl_init( $argv[1] );
 curl_setopt(
     $ch,
     CURLOPT_RETURNTRANSFER,
@@ -10,7 +10,7 @@ curl_setopt(
 $response = curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-switch ($httpCode) {
+switch ($httpcode) {
     case 200:
         echo "OK";
         break;
@@ -21,6 +21,6 @@ switch ($httpCode) {
         echo "ERROR DE SERVIDOR";
         break;
     default: 
-        echo "OTRO ERROR" . $httpCode;
+        echo "OTRO ERROR" . $httpcode;
         break;
 }
